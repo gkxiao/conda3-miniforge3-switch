@@ -59,3 +59,30 @@ conda-off
 # 或
 conda-switch status
 </pre>
+
+## 重要提示
+<ol>
+   <li>必须使用 source或 .命令，因为脚本需要修改当前 shell 的环境变量</li>
+   <li>脚本会自动清理之前的 conda 配置，避免冲突</li>
+   <li>每个 conda 使用独立的配置文件，完全隔离</li>
+   <li>包含 mamba 的初始化，解决您遇到的问题</li>
+</ol>
+
+这样设置后，就可以在两个 conda 环境之间自由切换，互不干扰了。
+
+## 验证
+测试openfe_env的miniforge3环境
+<pre lang=shell>
+# 首先激活 Miniforge3
+conda-mf
+
+# 然后激活 openfe_env 环境
+conda activate openfe_env
+# 或者如果使用 mamba
+mamba activate openfe_env
+
+# 验证
+conda info
+which python
+which mamba
+</pre>
