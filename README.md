@@ -14,7 +14,7 @@
 参见conda_switch
 
 ## 5. 设置脚本权限和别名
-<code>
+<pre lang=bash>
 # 创建 bin 目录（如果不存在）
 mkdir -p ~/bin
 
@@ -35,4 +35,4 @@ echo 'alias conda-switch="source ~/bin/conda_switch"' >> ~/.bashrc
 
 # 重新加载 bashrc
 source ~/.bashrc
-</code>
+</pre>
