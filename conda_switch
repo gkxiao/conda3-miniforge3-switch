@@ -1,0 +1,65 @@
+#!/bin/bash
+# 快速切换 conda 环境的脚本
+# 使用方法: . conda_switch [anaconda|miniforge|off]
+
+# 获取脚本所在目录
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+case "$1" in
+    anaconda|ana)
+        echo "切换到 Anaconda3..."
+        source "$SCRIPT_DIR/activate_anaconda.sh"
+        ;;
+    miniforge|mf|mamba)
+        echo "切换到 Miniforge3..."
+        source "$SCRIPT_DIR/activate_miniforge.sh"
+        ;;
+    off|none)
+        echo "退出所有 conda 环境..."
+        source "$SCRIPT_DIR/deactivate_conda.sh"
+        ;;
+    status|check)
+        echo "当前 conda 状态:"
+        echo "----------------"
+        if command -v conda &> /dev/null; then
+            echo "✓ conda 已激活"
+            echo "  路径: $(which conda)"
+            echo "  版本: $(conda --version 2>/dev/null || echo '未知')"
+            
+            if [[ -n "$CONDA_SHLVL" ]]; then
+                echo "  激活级别: $CONDA_SHLVL"
+            fi
+            
+            if [[ -n "$CONDA_DEFAULT_ENV" ]]; then
+                echo "  当前环境: $CONDA_DEFAULT_ENV"
+            fi
+            
+            if command -v mamba &> /dev/null; then
+                echo "  ✓ mamba 可用"
+                echo "    版本: $(mamba --version 2>/dev/null | head -1)"
+            fi
+            
+            # 检查是哪个 conda
+            if which conda | grep -q "anaconda3"; then
+                echo "  类型: Anaconda3"
+            elif which conda | grep -q "miniforge3"; then
+                echo "  类型: Miniforge3"
+            fi
+        else
+            echo "✗ conda 未激活"
+        fi
+        ;;
+    *)
+        echo "用法: . conda_switch {anaconda|miniforge|off|status}"
+        echo ""
+        echo "命令说明:"
+        echo "  anaconda, ana    切换到 Anaconda3"
+        echo "  miniforge, mf    切换到 Miniforge3"
+        echo "  off, none        退出所有 conda 环境"
+        echo "  status, check    查看当前状态"
+        echo ""
+        echo "注意: 必须使用 '.' 或 'source' 运行此命令"
+        echo "例如: . conda_switch anaconda"
+        return 1
+        ;;
+esac
