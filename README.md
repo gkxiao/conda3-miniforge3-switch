@@ -40,22 +40,22 @@ source ~/.bashrc
 ## 6. 使用方法
 <pre lang=bash>
 # 切换到 Anaconda3
-. conda_switch anaconda
+. ~/bin/conda_switch anaconda
 # 或
 conda-ana
 
 # 切换到 Miniforge3
-. conda_switch miniforge
+. ~/bin/conda_switch miniforge
 # 或
 conda-mf
 
 # 退出所有 conda
-. conda_switch off
+. ~/bin/conda_switch off
 # 或
 conda-off
 
 # 查看当前状态
-. conda_switch status
+. ~/bin/conda_switch status
 # 或
 conda-switch status
 </pre>
